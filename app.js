@@ -176,7 +176,7 @@ const modalContentData = {
         subtitle: 'El Diseñador Jefe',
         html: `
             <div class="modal-img-container">
-                <img src="assets/korolev.png" class="modal-img" alt="Serguéi Koroliov">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQah14IC74rW15zzZP6zmqJgkAHEUUUPw69t_dq_VgUvURPREEMficvKZ5Cxn2lmVEiNpcNYeIMVC8c-4L-PCkrAMfUksP2LehOOGzGKQ&s=10" class="modal-img" alt="Serguéi Koroliov">
                 <div class="modal-img-caption">Ilustración de Serguéi Koroliov, pionero de la ingeniería aeroespacial soviética.</div>
             </div>
             
