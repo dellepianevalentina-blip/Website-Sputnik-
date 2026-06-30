@@ -154,7 +154,7 @@ const modalContentData = {
         subtitle: 'El Primer Ser Vivo en Órbita',
         html: `
             <div class="modal-img-container">
-                <img src="assets/laika.png" class="modal-img" alt="Laika en el Sputnik 2">
+                <img src="https://media.newyorker.com/photos/59fb65a52d0aaf4a81445779/1:1/w_2603,h_2603,c_limit/Wellerstein-Laika.jpg" class="modal-img" alt="Laika en el Sputnik 2">
                 <div class="modal-img-caption">Ilustración artística de Laika a bordo de la cabina presurizada del Sputnik 2.</div>
             </div>
             
