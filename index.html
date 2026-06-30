@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sputnik 1: El Amanecer de la Era Espacial</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Una aplicación web interactiva que explora el lanzamiento del Sputnik 1 en 1957, el contexto de la Guerra Fría, la Carrera Espacial y su impacto tecnológico en la actualidad.">
+    <meta name="keywords" content="Sputnik, Carrera Espacial, Guerra Fría, Satélite, NASA, Serguéi Koroliov, Laika, Historia, Interactiva">
+    <meta name="author" content="Trabajo de Historia & Informática">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;800;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Space Canvas for Starfield -->
+    <canvas id="starfield"></canvas>
+
+    <!-- Header / Navigation -->
+    <header class="navbar">
+        <div class="logo">
+            <span class="logo-icon">🛰️</span>
+            <span class="logo-text">SPUTNIK 1</span>
+        </div>
+        <nav class="nav-controls">
+            <!-- Audio Beacon Status -->
+            <button id="beacon-btn" class="control-btn" title="Activar sonido del transmisor">
+                <span class="beacon-wave"></span>
+                <span class="btn-text" id="header-beacon-text">Transmisor: APAGADO</span>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Hero / Control Center -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="badge">EFEMÉRIDES 1957</div>
+            <h1 class="hero-title">SPUTNIK 1</h1>
+            <p class="hero-subtitle">
+                El primer satélite artificial de la historia. El inicio de la Carrera Espacial y uno de los acontecimientos clave de la Guerra Fría.
+            </p>
+            
+            <div class="hero-interactive">
+                <!-- Interactive Sputnik SVG -->
+                <div class="sputnik-svg-container" id="interactive-sputnik">
+                    <svg viewBox="0 0 200 200" class="sputnik-svg">
+                        <!-- Orbit glow path -->
+                        <circle cx="100" cy="100" r="90" class="orbit-path" />
+                        <!-- Radar wave pulses -->
+                        <circle cx="100" cy="100" r="40" class="pulse-wave wave-1" />
+                        <circle cx="100" cy="100" r="40" class="pulse-wave wave-2" />
+                        <!-- Satellite Body -->
+                        <circle cx="100" cy="100" r="28" class="satellite-body" />
+                        <circle cx="92" cy="92" r="22" class="satellite-body-inner" />
+                        <!-- Antennas -->
+                        <line x1="80" y1="80" x2="20" y2="20" class="antenna" />
+                        <line x1="82" y1="118" x2="25" y2="175" class="antenna" />
+                        <line x1="118" y1="82" x2="175" y2="25" class="antenna" />
+                        <line x1="120" y1="120" x2="180" y2="180" class="antenna" />
+                        <!-- Antenna Tips -->
+                        <circle cx="20" cy="20" r="2.5" class="antenna-tip" />
+                        <circle cx="25" cy="175" r="2.5" class="antenna-tip" />
+                        <circle cx="175" cy="25" r="2.5" class="antenna-tip" />
+                        <circle cx="180" cy="180" r="2.5" class="antenna-tip" />
+                    </svg>
+                </div>
+            </div>
+
+            <div class="audio-control-panel glass">
+                <div class="audio-panel-header">
+                    <span class="status-indicator" id="audio-status-dot"></span>
+                    <span class="audio-title">SIMULADOR DE BALIZA DE RADIO (20 MHz)</span>
+                </div>
+                <div class="audio-controls">
+                    <button id="play-sound-btn" class="play-btn">
+                        <span class="play-icon">▶</span> <span id="play-btn-text">Emitir Señal</span>
+                    </button>
+                    <div class="slider-group">
+                        <label for="freq-slider" id="freq-label">Frecuencia de Tono: 1000 Hz</label>
+                        <input type="range" id="freq-slider" min="400" max="2000" step="50" value="1000" disabled>
+                    </div>
+                    <div class="slider-group">
+                        <label for="speed-slider" id="speed-label">Intervalo: 400 ms</label>
+                        <input type="range" id="speed-slider" min="200" max="1000" step="50" value="400" disabled>
+                    </div>
+                </div>
+            </div>
+            
+            <a href="#dashboard-section" class="scroll-down-indicator">
+                <span>Explorar Panel</span>
+                <span class="arrow">↓</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Main Dashboard Section -->
+    <main id="dashboard-section" class="main-content">
+        
+        <div class="section-header">
+            <h2>Centro de Control de Misión</h2>
+            <p>Haz clic en cada tarjeta para explorar los detalles históricos interactivos.</p>
+        </div>
+
+        <div class="dashboard-grid">
+            
+            <!-- CARD 1: CONTEXTO HISTÓRICO -->
+            <div class="dash-card glass card-interactive" data-target="modal-context">
+                <div class="card-glow-bg glow-blue"></div>
+                <div class="card-icon">🌍</div>
+                <h3 class="card-title">Contexto Histórico</h3>
+                <p class="card-summary">El mundo dividido en la Guerra Fría y la lucha geopolítica por la supremacía tecnológica y militar.</p>
+                <div class="card-action">
+                    <span>Ver detalles</span> <span class="arrow-right">→</span>
+                </div>
+            </div>
+
+            <!-- CARD 2: EL SPUTNIK 1 -->
+            <div class="dash-card glass card-interactive" data-target="modal-sputnik1">
+                <div class="card-glow-bg glow-purple"></div>
+                <div class="card-icon">🚀</div>
+                <h3 class="card-title">Sputnik 1 (Ficha)</h3>
+                <p class="card-summary">Las especificaciones técnicas, lanzamiento desde Tyuratam y detalles de la esfera metálica.</p>
+                <div class="card-action">
+                    <span>Ver detalles</span> <span class="arrow-right">→</span>
+                </div>
+            </div>
+
+            <!-- CARD 3: SPUTNIK 2 Y LA LAIKA -->
+            <div class="dash-card glass card-interactive" data-target="modal-sputnik2">
+                <div class="card-glow-bg glow-pink"></div>
+                <div class="card-icon">🐕</div>
+                <h3 class="card-title">Sputnik 2 & Laika</h3>
+                <p class="card-summary">El viaje de la perra Laika, el primer ser vivo en órbita y el aumento masivo de tamaño del satélite.</p>
+                <div class="card-action">
+                    <span>Ver detalles</span> <span class="arrow-right">→</span>
+                </div>
+            </div>
+
+            <!-- CARD 4: SERGUÉI KOROLIOV -->
+            <div class="dash-card glass card-interactive" data-target="modal-korolev">
+                <div class="card-glow-bg glow-gold"></div>
+                <div class="card-icon">👨‍🚀</div>
+                <h3 class="card-title">El Diseñador Jefe</h3>
+                <p class="card-summary">Serguéi Koroliov, el cerebro secreto soviético y creador del colosal cohete R-7 Semyorka.</p>
+                <div class="card-action">
+                    <span>Ver detalles</span> <span class="arrow-right">→</span>
+                </div>
+            </div>
+
+            <!-- CARD 5: IMPACTO Y REACCIONES -->
+            <div class="dash-card glass card-interactive" data-target="modal-impact">
+                <div class="card-glow-bg glow-red"></div>
+                <div class="card-icon">📈</div>
+                <h3 class="card-title">Impacto en la Guerra Fría</h3>
+                <p class="card-summary">El pánico del Sputnik en EE. UU., la carrera nuclear y la propaganda internacional.</p>
+                <div class="card-action">
+                    <span>Ver detalles</span> <span class="arrow-right">→</span>
+                </div>
+            </div>
+
+            <!-- CARD 6: FUENTES HISTÓRICAS -->
+            <div class="dash-card glass card-interactive" data-target="modal-sources">
+                <div class="card-glow-bg glow-green"></div>
+                <div class="card-icon">📰</div>
+                <h3 class="card-title">Fuentes Históricas</h3>
+                <p class="card-summary">Análisis de la prensa de 1957, el Acta de creación de la NASA en 1958 y bibliografía del proyecto.</p>
+                <div class="card-action">
+                    <span>Ver detalles</span> <span class="arrow-right">→</span>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Timeline Section -->
+        <section class="timeline-section">
+            <div class="section-header">
+                <h2>Línea de Tiempo Interactiva</h2>
+                <p>Haz clic en los hitos para ver el desarrollo de la Era Espacial.</p>
+            </div>
+            
+            <div class="timeline-container">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-nodes">
+                    <!-- 1957 Sputnik 1 -->
+                    <div class="timeline-node timeline-node-left" data-event="tl-sputnik1">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card glass">
+                            <span class="timeline-date">1957 (4 Oct)</span>
+                            <h4>Sputnik 1: Lanzamiento</h4>
+                            <p>La Unión Soviética pone en órbita el primer satélite artificial.</p>
+                        </div>
+                    </div>
+                    
+                    <!-- 1957 Sputnik 2 -->
+                    <div class="timeline-node timeline-node-right" data-event="tl-sputnik2">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card glass">
+                            <span class="timeline-date">1957 (3 Nov)</span>
+                            <h4>Sputnik 2 & Laika</h4>
+                            <p>Primer ser vivo en órbita. Un hito biológico espacial.</p>
+                        </div>
+                    </div>
+
+                    <!-- 1958 NASA -->
+                    <div class="timeline-node timeline-node-left" data-event="tl-nasa">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card glass">
+                            <span class="timeline-date">1958 (29 Jul)</span>
+                            <h4>Fundación de la NASA</h4>
+                            <p>EE.UU. responde formalmente impulsando su programa espacial civil.</p>
+                        </div>
+                    </div>
+
+                    <!-- 1961 Gagarin -->
+                    <div class="timeline-node timeline-node-right" data-event="tl-gagarin">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card glass">
+                            <span class="timeline-date">1961 (12 Abr)</span>
+                            <h4>Yuri Gagarin en Órbita</h4>
+                            <p>El piloto soviético se convierte en el primer ser humano en el espacio.</p>
+                        </div>
+                    </div>
+
+                    <!-- 1969 Apollo 11 -->
+                    <div class="timeline-node timeline-node-left" data-event="tl-apollo">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card glass">
+                            <span class="timeline-date">1969 (20 Jul)</span>
+                            <h4>Llegada a la Luna</h4>
+                            <p>El Apolo 11 lleva exitosamente al ser humano a la superficie lunar.</p>
+                        </div>
+                    </div>
+
+                    <!-- Present Legacy -->
+                    <div class="timeline-node timeline-node-right" data-event="tl-present">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card glass">
+                            <span class="timeline-date">Presente</span>
+                            <h4>La Era Satelital</h4>
+                            <p>GPS, telecomunicaciones, exploración comercial a Marte y constelaciones de satélites.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Present Connection & Legacy -->
+        <section class="legacy-section">
+            <div class="section-header">
+                <h2>Conexión con el Presente</h2>
+                <p>¿Cómo influye la hazaña de 1957 en nuestro día a día?</p>
+            </div>
+            
+            <div class="legacy-grid">
+                <div class="legacy-item glass">
+                    <div class="legacy-icon">🛰️</div>
+                    <h4>Navegación GPS y Mapas</h4>
+                    <p>Los sistemas GPS que guían nuestros autos, celulares y barcos son herederos directos de las técnicas de rastreo del Sputnik.</p>
+                </div>
+                <div class="legacy-item glass">
+                    <div class="legacy-icon">🌐</div>
+                    <h4>Telecomunicaciones Globales</h4>
+                    <p>Internet satelital, televisión e infraestructura de redes internacionales que conectan continentes enteros.</p>
+                </div>
+                <div class="legacy-item glass">
+                    <div class="legacy-icon">🌦️</div>
+                    <h4>Meteorología y Clima</h4>
+                    <p>Predicción de tormentas, rastreo de huracanes e investigación del cambio climático mediante órbita terrestre.</p>
+                </div>
+                <div class="legacy-item glass">
+                    <div class="legacy-icon">🚀</div>
+                    <h4>Nueva Exploración Comercial</h4>
+                    <p>Empresas privadas como SpaceX y agencias mundiales cooperan y compiten por establecer colonias en Marte y bases lunares.</p>
+                </div>
+            </div>
+
+            <!-- Group Reflection Panel -->
+            <div class="reflection-panel glass">
+                <div class="reflection-accent"></div>
+                <div class="reflection-content">
+                    <h3>💡 Reflexión del Grupo</h3>
+                    <p>
+                        El Sputnik 1 demuestra cómo los avances científicos pueden surgir de la competencia geopolítica entre naciones y terminar transformando de forma permanente la vida cotidiana de miles de millones de personas. Muchas de las tecnologías esenciales que consideramos hoy indispensables nacieron en el fragor de la Carrera Espacial iniciada en 1957.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <p>Trabajo Práctico Interdisciplinar de Historia & Informática</p>
+            <p class="footer-sub">Sputnik 1 (1957) &copy; 2026. Diseñado con fines educativos.</p>
+        </div>
+    </footer>
+
+    <!-- INTERACTIVE MODAL DIALOG -->
+    <div id="info-modal" class="modal-backdrop">
+        <div class="modal-container glass">
+            <button id="modal-close" class="modal-close-btn">&times;</button>
+            <div class="modal-inner-content">
+                <!-- Content injected dynamically by JS -->
+                <div id="modal-body-placeholder"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="app.js"></script>
+</body>
+</html>
